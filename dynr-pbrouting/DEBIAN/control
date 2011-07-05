@@ -2,7 +2,7 @@ Package: dynr-pbrouting
 Section: net
 Priority: extra
 Essential: no
-Version: 1.0.6-1
+Version: 1.0.6-2
 Architecture: all
 Installed-Size: 56
 Depends: arp-scan,python-ipy,python-dbus,python-daemon,dbus,upstart
@@ -12,3 +12,7 @@ Description: Configuration stuff for a dynr (dynamic router) system.
  The dynr (dynamic router) is a simple web based gateway selection tool. 
  This package provides the tools and configuration for policy based routing part of dynr,
  including a dbus service and commandline took for changing the gateway for a workstation.
+ .
+ It is an Open Source project distributed under Lesser GNU General Public License
+ (LGPL).
+ .
