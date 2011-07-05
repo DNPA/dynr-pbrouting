@@ -1,0 +1,48 @@
+.Dd June 23, 2011
+.Os LINUX 2.6
+.Dt PBROUTING.JSON 5 URM
+.Sh NAME
+pbrouting.json
+.Nd
+Dynr Dynamic router: Configuration
+.Sh DESCRIPTION
+The configuration of the dynr system is stored inside a simple json file.
+If you don have this file on your system a best guese auto generated file
+can be created using the pbr-setup.py script. The pbr-checkconfig.py script
+can be used to check the validity of the config file.
+
+The config file consists of two main sections, the \fBdevices\fR section and 
+the \fBgateways\fR section. The gateways section contains an array of all the
+gateways that are known. The devices section is itself divided into two sections,
+a \fBclients\fR section and a \fBrouters\fR section. The client subsection contains
+an array of devices that are to be considered to have client workstations behind
+them. The routers subsection contains the device that is considered to have the
+router gateways behind it.
+
+Each device subsubsection has 4 fields defined. A \fBdevice\fR field holding the 
+name of the actual networking device. Don't change this field. The field \fBip\fR
+field contains the primary IP adress this interface uses while the \fBnet\fR field
+defines its network range. The field \fBgroupname\fR is probably the only field
+of the devices that you may want to change. Its the name used to designate the
+group of clients that this interface gives access to.
+
+Each gateway has a \fBallowedgroups\fR section that contains an array of group
+names. This array is basicaly used for access control. By default, all device 
+groupnames are added to all gateway allowedgroups. You may want to change this so that
+different workstation networks have access to different gateways.
+Each gateway also has 3 fields defined for it. Its \fBip\fR, a \fBname\fR that you will 
+probably want to change from gateway<N> to something more meaningfull, and a unique 
+integer \fBtableno\fR field. This field will be used directly for iproute2 and should 
+remain a small unique integer.
+
+There is a special gateway definition with the name \fBparkip\fR. You should not change 
+its name, its the gateway (or more often the non existing gateway) that after a reboot
+any workstation will be router via. It is sugested to let parkip point to an IP that will
+never be alocated to any system.
+.fi
+.Sh SEE ALSO
+.PP
+\fBdynr-pbrouting\fR(1) \fBdynr-web\fR(1) \fBdynr-dns\fR(1)
+.Sh AUTHORS
+This manual page was written  by  Rob Meijer <rob@dnpa.nl>, for
+the GNU/Linux Ubuntu system

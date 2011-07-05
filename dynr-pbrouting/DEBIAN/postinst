@@ -1,0 +1,6 @@
+#!/bin/bash
+echo Creating new group pbrgwman
+/usr/sbin/groupadd -r pbrgwman
+echo Scanning networks to create a base config.
+echo This may take a few minutes.
+/usr/sbin/pbr-setup.py

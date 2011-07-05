@@ -1,0 +1,73 @@
+.Dd June 23, 2011
+.Os LINUX
+.Dt DYNR-PBROUTING  8 URM
+.Sh NAME
+dynr-pbrouting
+.Nd
+Dynr: Policy based routing core.
+.Sh SYNOPSIS
+\fB pbr-setup.py\fR
+
+\fB pbr-checkconfig.py\fR
+
+\fB pbr-startup.py\fR
+
+\fB pbr-shutdown.py\fR
+
+\fB pbr-dbus.py\fR
+
+\fB pbr-setgateway.py\fR workstationip gatewayip
+
+.Sh DESCRIPTION
+
+A dynr dynamic router system is a router system that sits between a network with multiple 
+internet routers and a network with multiple workstations, and allows the people working
+on the workstations to pick and change lines according to their personal preferences and/or
+according to the need of the moment. A dynr consists out of several subsystems, the policy 
+based routing core (dynr-pbrouting), a web interface (dynr-web) and a dynamic policy based 
+dns proxy (dynr-dns). 
+
+The policy based routing core of the dynamic router provides tools and scripts for 
+starting up, running and administrating the base operations of a dynamic router system.
+
+At install, dynr-pbrouting will try to determine as much as possible about the networks
+it is connected to and from this information will create a configuration file pbrouting.json
+that you can change to, reflect any subtile differences with reality, to fit your personal
+naming preferences for networks and gateways, or to give different choiches to different 
+connected workstation networks. By default all workstation networks will be able to choose
+all gateway devices.
+
+If during install the network interfaces were not properly configured yet, it is likely the
+config will not be very usefull. If this is the case, you can delete the config file and run
+the pbr-setup.py tool once more.
+
+Once you are hapy with your configuration, you should use the tool pbr-checkconfig.py to
+check the full validity of your config.
+
+At system startup, dynr-pbrouting will run two tasks. It runs the pbr-startup script in order
+to preconfigure iproute2 properly as soon as the network is up. It will next to this start up
+pbr-dbus, a dbus service for allowing the dynr-web subsystem of the dynamic router to change
+the routing policy for any given workstation.
+
+The dynr-pbrouting package also contains a command-line tool for manualy changing the policy
+for a given workstation. The pbr-setgateway.py script allows any user in the pbrgwman group.
+Please note that after adding your user to this group, you may have to restart dbus, log out 
+and log in again before the dbus will allow you to use the dbus service with this tool.
+
+.Sh ENVIRONMENT
+The dynr-pbrouting package depends on a system that uses both the dbus and the upstart system.
+It has been tested on ubuntu 10.4 and 11.4. If you are successfully running dynr-pbrouting on any
+other distribution or version, or are having problems running it on any such system, please notify
+the author.
+
+.Sh FILES
+/etc/pbrouting.json  
+.\" .Sh EXAMPLES
+.Sh SEE ALSO
+.PP
+\fBpbrouting.json\fR(5) \fBdynr-web\fR(1) \fBdynr-dns\fR(1) 
+.\" .Sh STANDARDS
+.Sh HISTORY
+This package is derived from the original (unpublished) dynrlite system.
+.Sh AUTHORS
+This manual page was written  by  Rob Meijer <rob@dnpa.nl>, for the GNU/Linux Ubuntu system
